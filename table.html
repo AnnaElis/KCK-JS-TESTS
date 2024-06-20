@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Тест</title>
+    <script src="test.json" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <script>
+        console.log(items);
+        addTable(items);
+
+        function addTable(items) {
+            let _headers = [];
+            let body = document.getElementsByTagName('body')[0];
+            let table = document.createElement('TABLE');
+            table.border = '1';
+
+            let tableBody = document.createElement('TBODY');
+            let tableHeader = document.createElement('THEAD');
+            table.appendChild(tableHeader);
+            table.appendChild(tableBody);
+
+            items.forEach(function (obj) {
+                for (let key in obj) {
+                    if (_headers.find(elementKey => elementKey == key)) {
+                    } else _headers.push(key);
+                }
+            });
+
+            for (let index = 0; index < items.length; index++) {
+                let _item = items[index];
+                let tr = document.createElement('TR');
+                tableBody.appendChild(tr);
+                _headers.forEach(function (key) {
+                    let td = document.createElement('TD');
+                    td.appendChild(document.createTextNode(_item[key] != null ? _item[key] : ''));
+                    tr.appendChild(td);
+                })
+
+            }
+
+            _headers.forEach(function (header) {
+                let th = document.createElement('TH');
+                th.appendChild(document.createTextNode(header));
+                tableHeader.appendChild(th);
+            })
+            body.appendChild(table);
+        }
+
+        const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+        const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+                v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+        )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+
+        document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+            const table = th.closest('table');
+            Array.from(table.querySelectorAll('tr:nth-child(n)'))
+                .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+                .forEach(tr => table.appendChild(tr));
+        })));
+
+        th = document.getElementsByTagName('th')[0].innerHTML = 'Код';
+        th = document.getElementsByTagName('th')[1].innerHTML = 'ID';
+        th = document.getElementsByTagName('th')[2].innerHTML = 'Тема';
+        th = document.getElementsByTagName('th')[3].innerHTML = 'Приоритет-1';
+        th = document.getElementsByTagName('th')[4].innerHTML = 'Приоритет-2';
+        th = document.getElementsByTagName('th')[5].innerHTML = 'Приоритет-3';
+        th = document.getElementsByTagName('th')[6].innerHTML = 'Постановщик';
+        th = document.getElementsByTagName('th')[7].innerHTML = 'Постановщик';
+        th = document.getElementsByTagName('th')[8].innerHTML = 'Логин';
+        th = document.getElementsByTagName('th')[9].innerHTML = 'Идентификатор постановщика';
+        th = document.getElementsByTagName('th')[10].innerHTML = 'Ответственный исполнитель';
+        th = document.getElementsByTagName('th')[11].innerHTML = 'Проект';
+        th = document.getElementsByTagName('th')[12].innerHTML = 'E-Mail';
+        th = document.getElementsByTagName('th')[13].innerHTML = 'Процесс';
+        th = document.getElementsByTagName('th')[14].innerHTML = 'Задачи';
+        th = document.getElementsByTagName('th')[15].innerHTML = 'Информация по задачам';
+        th = document.getElementsByTagName('th')[16].innerHTML = 'Дата создания';
+        th = document.getElementsByTagName('th')[17].innerHTML = 'Статус';
+        th = document.getElementsByTagName('th')[18].innerHTML = 'Срок';
+        th = document.getElementsByTagName('th')[19].innerHTML = 'Истекает';
+        th = document.getElementsByTagName('th')[20].innerHTML = 'Описание';
+        th = document.getElementsByTagName('th')[21].innerHTML = 'Теги';
+        th = document.getElementsByTagName('th')[22].innerHTML = 'ID проекта';
+        th = document.getElementsByTagName('th')[23].innerHTML = 'Проект';
+        th = document.getElementsByTagName('th')[24].innerHTML = 'Номер проекта';
+        th = document.getElementsByTagName('th')[25].innerHTML = 'Секретно';
+        th = document.getElementsByTagName('th')[26].innerHTML = 'Доступ';
+        th = document.getElementsByTagName('th')[27].innerHTML = 'Результат';
+        th = document.getElementsByTagName('th')[28].innerHTML = 'Расчетная дата';
+    </script>
+
+</div>
+
+
+</body>
+</html>
+
+
